@@ -1,8 +1,8 @@
 import axios from "axios"
 
-import format, {
-    TYPE
-} from "./formatAPI.js"
+// import format, {
+//     TYPE
+// } from "./formatAPI.js"
 import { API_BASE_URL } from "./constants.js"
 
 export function setTokenHeader(token) {
