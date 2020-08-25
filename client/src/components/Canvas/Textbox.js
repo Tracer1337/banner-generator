@@ -1,9 +1,11 @@
 import React, { useState, useContext, useEffect } from "react"
+import moment from "moment"
 import { DraggableCore } from "react-draggable"
 import { Badge } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 
 import { WorkspaceContext } from "../Workspace.js"
+import { TYPES } from "../../Models/Textbox"
 
 const useStyles = makeStyles(theme => ({
     textbox: {
@@ -70,7 +72,11 @@ function Textbox({ data, imageDimensions, id }) {
                     horizontal: "left"
                 }}
             >
-                {data.textContent}
+                { data.type === TYPES.TEXT ? (
+                    data.data
+                ) : data.type === TYPES.TIME ? (
+                    moment().format("HH:mm").toString()
+                ) : null }
             </Badge>
         </DraggableCore>
     )

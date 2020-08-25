@@ -1,7 +1,8 @@
 import React, { useContext } from "react"
-import { Grid, TextField, Typography } from "@material-ui/core"
+import { Grid, TextField, Typography, Select, MenuItem, FormControl, InputLabel } from "@material-ui/core"
 
 import { WorkspaceContext } from "../Workspace.js"
+import { TYPES } from "../../Models/Textbox.js"
 
 function TextboxControls({ data, id, onChange }) {
     return (
@@ -11,12 +12,36 @@ function TextboxControls({ data, id, onChange }) {
             </Grid>
 
             <Grid item xs>
-                <TextField
-                    name="textContent"
-                    label="Text"
-                    value={data.textContent}
-                    onChange={event => onChange({ textContent: event.target.value })}
-                />
+                <FormControl fullWidth>
+                    <InputLabel>Type</InputLabel>
+
+                    <Select
+                        value={data.type}
+                        onChange={event => onChange({
+                            ...data,
+                            type: event.target.value
+                        })}
+                    >
+                        {Object.values(TYPES).map(type => (
+                            <MenuItem value={type} key={type}>{type}</MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+            </Grid>
+
+            <Grid item xs>
+                { data.type === TYPES.TEXT ? (
+                    <TextField
+                        name="textContent"
+                        label="Text"
+                        value={data.data}
+                        fullWidth
+                        onChange={event => onChange({
+                            ...data,
+                            data: event.target.value
+                        })}
+                    />
+                ) : null}
             </Grid>
         </Grid>
     )
