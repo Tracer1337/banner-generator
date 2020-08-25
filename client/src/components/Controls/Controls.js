@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles"
 
 import { WorkspaceContext } from "../Workspace.js"
 import GridControls from "./GridControls.js"
-import TextboxControls from "./TextboxControls.js"
+import TextboxControlList from "./TextboxControlList.js"
 
 const useStyles = makeStyles(theme => ({
     sectionTitle: {
@@ -22,10 +22,12 @@ function Controls() {
     return (
         <Grid container spacing={2}>
             <Grid item>
-                <Button variant="contained" color="primary" onClick={dispatch("importImage")}>Import Image</Button>
+                <Button variant="contained" color="primary" onClick={dispatch("importImage")}>
+                    { !context.model.image ? "Import" : "Change" } Image
+                </Button>
             </Grid>
 
-            { context.image && (
+            { context.model.image && (
                 <>
                     <Grid item>
                         <Button variant="contained" color="primary" onClick={dispatch("addTextbox")}>Add Textbox</Button>
@@ -38,7 +40,7 @@ function Controls() {
 
                     <Grid item xs={12}>
                         <Typography variant="h5" className={classes.sectionTitle}>Textboxes</Typography>
-                        <TextboxControls />
+                        <TextboxControlList />
                     </Grid>
                 </>
             ) }

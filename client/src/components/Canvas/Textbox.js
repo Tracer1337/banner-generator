@@ -9,23 +9,24 @@ import { TYPES } from "../../Models/Textbox"
 
 const useStyles = makeStyles(theme => ({
     textbox: {
-        width: 100,
-        height: 50,
         padding: theme.spacing(1),
         position: "absolute",
         top: 0, left: 0,
         cursor: "move",
-        border: "1px solid"
+        border: "1px solid",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center"
     }
 }))
 
-function Textbox({ data, imageDimensions, id }) {
+function Textbox({ textbox, imageDimensions }) {
     const context = useContext(WorkspaceContext)
     
     const classes = useStyles()
 
-    const [position, setPosition] = useState({ x: 0, y: 0 })
-    
+    const [position, setPosition] = useState(textbox.data.position)
+
     const handleDrag = (event, pos) => {
         setPosition({
             x: position.x + pos.deltaX,
@@ -48,6 +49,10 @@ function Textbox({ data, imageDimensions, id }) {
         }
     }, [context.grid])
 
+    useEffect(() => {
+        textbox.data.position = position
+    }, [position])
+
     const grid = [
         imageDimensions.width / context.grid.columns,
         imageDimensions.height / context.grid.rows
@@ -60,21 +65,22 @@ function Textbox({ data, imageDimensions, id }) {
         >
             <Badge
                 className={classes.textbox}
-                style={{
-                    transform: `translate(${position.x}px, ${position.y}px)`
-                }}
-
-                badgeContent={id}
+                badgeContent={textbox.key}
                 color="primary"
                 invisible={false}
                 anchorOrigin={{
                     vertical: "top",
                     horizontal: "left"
                 }}
+                style={{
+                    transform: `translate(${position.x}px, ${position.y}px)`,
+                    ...textbox.data.dimensions,
+                    ...textbox.data.typography
+                }}
             >
-                { data.type === TYPES.TEXT ? (
-                    data.data
-                ) : data.type === TYPES.TIME ? (
+                { textbox.data.type === TYPES.TEXT ? (
+                    textbox.data.data
+                ) : textbox.data.type === TYPES.TIME ? (
                     moment().format("HH:mm").toString()
                 ) : null }
             </Badge>

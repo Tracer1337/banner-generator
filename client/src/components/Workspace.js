@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useReducer } from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import { Grid } from "@material-ui/core"
 
@@ -13,10 +13,14 @@ const useStyles = makeStyles(theme => ({
 function Workspace() {
     const classes = useStyles()
 
+    const [reloadKey, reload] = useReducer(key => key + 1, 0)
+    
     const [context, setContext] = useState({
         event: new EventTarget(),
-        image: null,
-        textboxes: [],
+        model: {
+            image: null,
+            textboxes: []
+        },
         grid: {
             isEnabled: true,
             rows: 16,
@@ -24,12 +28,15 @@ function Workspace() {
         }
     })
 
-    const setter = {
-        set: values => setContext({ ...context, ...values })
+    const methods = {
+        set: values => setContext({ ...context, ...values }),
+        reload
     }
 
+    window.context = context
+
     return (
-        <WorkspaceContext.Provider value={{ ...context, ...setter }}>
+        <WorkspaceContext.Provider value={{ ...context, ...methods }}>
             <Grid container spacing={8}>
                 <Grid item xs>
                     <Canvas />

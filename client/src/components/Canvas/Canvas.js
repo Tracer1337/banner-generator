@@ -12,7 +12,8 @@ const useStyles = makeStyles(theme => ({
     canvas: {
         minHeight: 250,
         overflow: "hidden",
-        position: "relative"
+        position: "relative",
+        userSelect: "none"
     },
 
     image: {
@@ -26,22 +27,29 @@ function Canvas() {
     const classes = useStyles()
 
     const imageRef = useRef()
+    const idCounter = useRef(0)
 
     const handleImportImage = async () => {
         const file = await importFile("image/*")
         const base64Image = await fileToImage(file)
 
         context.set({
-            image: base64Image
+            model: {
+                ...context.model,
+                image: base64Image
+            }
         })
     }
 
     const handleAddTextbox = () => {
         context.set({
-            textboxes: [
-                ...context.textboxes,
-                new Textbox(context.textboxes.length)
-            ]
+            model: {
+                ...context.model,
+                textboxes: [
+                    ...context.model.textboxes,
+                    new Textbox(idCounter.current++)
+                ]
+            }
         })
     }
 
@@ -57,12 +65,12 @@ function Canvas() {
 
     return (
         <Paper className={classes.canvas}>
-            { context.image && (
+            { context.model.image && (
                 <>
                     { context.grid.isEnabled && <Grid /> }
 
                     <img
-                        src={context.image}
+                        src={context.model.image}
                         alt=""
                         className={classes.image}
                         ref={imageRef}
@@ -71,11 +79,10 @@ function Canvas() {
                 </>
             ) }
 
-            { context.textboxes.map(textbox => (
+            { context.model.textboxes.map(textbox => (
                 React.createElement(TextboxElement, {
+                    textbox,
                     key: textbox.key,
-                    id: textbox.key,
-                    data: textbox.data,
                     imageDimensions: {
                         width: imageRef.current.clientWidth,
                         height: imageRef.current.clientHeight
