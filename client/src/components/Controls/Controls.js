@@ -21,6 +21,12 @@ function Controls() {
 
     return (
         <Grid container spacing={2}>
+            { context.model.image && ( 
+                <Grid item>
+                    <Button variant="contained" color="secondary" onClick={dispatch("store")}>Save</Button>
+                </Grid>
+            ) }
+
             <Grid item>
                 <Button variant="contained" color="primary" onClick={dispatch("importImage")}>
                     { !context.model.image ? "Import" : "Change" } Image

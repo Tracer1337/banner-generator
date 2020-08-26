@@ -29,6 +29,10 @@ class Textbox {
             }
         }
     }
+
+    toJSON() {
+        return this.data
+    }
 }
 
 export default Textbox

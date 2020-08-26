@@ -1,8 +1,10 @@
-import React, { useState, useReducer } from "react"
+import React, { useState, useReducer, useEffect } from "react"
 import { Grid } from "@material-ui/core"
 
 import Canvas from "./Canvas/Canvas.js"
 import Controls from "./Controls/Controls.js"
+
+import { storeBanner } from "../config/api.js"
 
 const WorkspaceContext = React.createContext()
 
@@ -28,6 +30,20 @@ function Workspace() {
         reload
     }
 
+    const handleUpload = () => {
+        storeBanner(context.model)
+            .then(res => console.log(res))
+            .catch(error => console.error(error.response))
+    }
+    
+    useEffect(() => {
+        context.event.addEventListener("store", handleUpload)
+        
+        return () => {
+            context.event.removeEventListener("store", handleUpload)
+        }
+    })
+    
     window.context = context
 
     return (
