@@ -2,9 +2,7 @@ import { COLORS } from "../config/constants.js"
 
 export const TYPES = {
     TEXT: "Text",
-    TIME: "Time",
-    API: "API",
-    SCRIPT: "Script"
+    TIME: "Time"
 }
 
 class Textbox {

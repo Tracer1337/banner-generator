@@ -1,20 +1,23 @@
 import React from "react"
-import { makeStyles } from "@material-ui/core/styles"
+import { useSelector } from "react-redux"
 
 import Layout from "../components/Layout/Layout.js"
+import AuthAdvice from "../components/AuthAdvice.js"
 import Workspace from "../components/Workspace.js"
 
-const useStyles = makeStyles(theme => ({
-    index: {
-        marginTop: 200
-    }
-}))
-
 function IndexPage() {
-    const classes = useStyles()
+    const isLoggedIn = useSelector(store => store.auth.isLoggedIn)
+
+    if (!isLoggedIn) {
+        return (
+            <Layout spacingTop>
+                <AuthAdvice/>
+            </Layout>
+        )
+    }
     
     return (
-        <Layout className={classes.index}>
+        <Layout spacingTop>
             <Workspace/>
         </Layout>
     )

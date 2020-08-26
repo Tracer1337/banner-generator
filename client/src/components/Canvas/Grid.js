@@ -57,6 +57,8 @@ function Grid() {
     useEffect(() => {
         setDimensions()
         renderGrid()
+        
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [context.image, context.grid])
 
     return (

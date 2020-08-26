@@ -1,5 +1,4 @@
 import React, { useState, useReducer } from "react"
-import { makeStyles } from "@material-ui/core/styles"
 import { Grid } from "@material-ui/core"
 
 import Canvas from "./Canvas/Canvas.js"
@@ -7,12 +6,8 @@ import Controls from "./Controls/Controls.js"
 
 const WorkspaceContext = React.createContext()
 
-const useStyles = makeStyles(theme => ({
-}))
-
 function Workspace() {
-    const classes = useStyles()
-
+    // eslint-disable-next-line no-unused-vars
     const [reloadKey, reload] = useReducer(key => key + 1, 0)
     
     const [context, setContext] = useState({

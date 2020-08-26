@@ -7,12 +7,13 @@ import Header from "./Header.js"
 
 const useStyles = makeStyles(theme => ({
     layout: {
-        marginTop: theme.mixins.toolbar[theme.breakpoints.up("sm")].minHeight
+        marginTop: theme.mixins.toolbar[theme.breakpoints.up("sm")].minHeight,
+        paddingTop: props => props.spacingTop ? 200 : 0
     }
 }))
 
-function Layout({ children, className }) {
-    const classes = useStyles()
+function Layout({ spacingTop, className, children }) {
+    const classes = useStyles({ spacingTop })
 
     return (
         <Container className={clsx(classes.layout, className)}>

@@ -10,7 +10,7 @@ import Textbox from "../../Models/Textbox.js"
 
 const useStyles = makeStyles(theme => ({
     canvas: {
-        minHeight: 250,
+        minHeight: 170,
         overflow: "hidden",
         position: "relative",
         userSelect: "none"

@@ -4,6 +4,8 @@
     * Bild hochladen => Anzeigen
     * Textboxen hinzufügen
 
+* Maximale Größe: 1024 x 300
+
 # Template
 
 * Hintergrundbild
@@ -18,3 +20,7 @@
 * Templates speichern
 
 * Templates über URL mit Inhalt gefüllt ausgeben
+
+# SinusBot
+
+* Sende Daten des Teamspeak servers an Backend

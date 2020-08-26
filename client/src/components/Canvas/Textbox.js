@@ -47,10 +47,14 @@ function Textbox({ textbox, imageDimensions }) {
                 y: Math.round(position.y / cellHeight) * cellHeight
             })
         }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [context.grid])
 
     useEffect(() => {
         textbox.data.position = position
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [position])
 
     const grid = [
